@@ -9,17 +9,31 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
+@RunWith(Parameterized.class)
 public class GoogleDeleteTest {
     public static Properties prp;
+    private String pId = null;
+
+    public GoogleDeleteTest(String pId){
+        this.pId = pId;
+    }
+
+    @Parameterized.Parameters
+    public static Collection<Object[]> getData(){
+        Collection<Object[]> params = new ArrayList<>(2);
+        params.add(new Object[]{"xyzsadsfgdgsad"});
+        params.add(new Object[]{"sajdjahfdjhaksj"});
+        return params;
+    }
 
     @BeforeClass
     public static void startup() throws IOException {
@@ -28,10 +42,10 @@ public class GoogleDeleteTest {
 
     @Test
     public void googleDelete(){
-//        RestAssured.baseURI = prp.getProperty(Constants.HOST);
-        RestAssured.baseURI = System.getProperty("Host");
+        RestAssured.baseURI = prp.getProperty(Constants.HOST);
+//        RestAssured.baseURI = System.getProperty("Host");  needed for jenkins
         Map<String, String> map = new HashMap<>();
-        map.put("place_id",prp.getProperty(Constants.PLACEID));
+        map.put("place_id",pId);
         Response res = given().log().all().
                 queryParam(Constants.KEY,prp.getProperty("Key")).
                 body(map).

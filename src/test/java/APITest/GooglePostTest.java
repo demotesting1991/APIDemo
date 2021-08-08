@@ -31,8 +31,10 @@ public class GooglePostTest
     public void googlePost() throws IOException {
 //        RestAssured.baseURI = prp.getProperty(Constants.HOST);
         RestAssured.baseURI = System.getProperty("Host");
-        Response res = given().log().all().
-                queryParam(Constants.KEY,prp.getProperty("Key")).
+        Response res = given().
+                //header("Authorization","Basic 54765868798676uytdjhgghgchxfjhgfdx").
+//                auth().oauth2("dsfdghgfdfs").
+                        queryParam(Constants.KEY,prp.getProperty("Key")).
                 body(Payload.googlePostPayload()).
                 when().
                 post("/maps/api/place/add/json").
@@ -40,6 +42,10 @@ public class GooglePostTest
                 assertThat().statusCode(200).contentType(ContentType.JSON).and().
                 body(Constants.STATUS,equalTo("OK")).
                 extract().response();
+
+        //String sessionId = res.getCookies().get("JSESSIONID");
+
+        //given().cookie("JSESSIONID",sessionId).body("").post("");
 
         String resString = res.asString();
         JsonPath js = new JsonPath(resString);
