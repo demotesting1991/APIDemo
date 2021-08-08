@@ -29,7 +29,8 @@ public class GooglePostTest
 
     @Test
     public void googlePost() throws IOException {
-        RestAssured.baseURI = prp.getProperty(Constants.HOST);
+//        RestAssured.baseURI = prp.getProperty(Constants.HOST);
+        RestAssured.baseURI = System.getProperty("Host");
         Response res = given().log().all().
                 queryParam(Constants.KEY,prp.getProperty("Key")).
                 body(Payload.googlePostPayload()).

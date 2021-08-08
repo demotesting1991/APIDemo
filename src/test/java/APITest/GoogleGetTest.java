@@ -24,7 +24,8 @@ public class GoogleGetTest {
 
     @Test
     public void getGoogleAPI(){
-        RestAssured.baseURI = prp.getProperty(Constants.HOST);
+//        RestAssured.baseURI = prp.getProperty(Constants.HOST);
+        RestAssured.baseURI = System.getProperty("Host");
         Response response = given().log().all().
                 queryParam(Constants.KEY,prp.getProperty("Key")).
                 queryParam("place_id",prp.getProperty(Constants.PLACEID)).

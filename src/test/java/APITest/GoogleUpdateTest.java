@@ -31,7 +31,8 @@ public class GoogleUpdateTest
 
     @Test
     public void googlePut() throws IOException, ParseException {
-        RestAssured.baseURI = prp.getProperty(Constants.HOST);
+//        RestAssured.baseURI = prp.getProperty(Constants.HOST);
+        RestAssured.baseURI = System.getProperty("Host");
         JSONObject payload = Utility.getJsonObject("/src/main/java/APITest/update.json");
         payload.put("place_id",prp.getProperty(Constants.PLACEID));
         Response res = given().log().all().

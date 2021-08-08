@@ -28,7 +28,8 @@ public class GoogleDeleteTest {
 
     @Test
     public void googleDelete(){
-        RestAssured.baseURI = prp.getProperty(Constants.HOST);
+//        RestAssured.baseURI = prp.getProperty(Constants.HOST);
+        RestAssured.baseURI = System.getProperty("Host");
         Map<String, String> map = new HashMap<>();
         map.put("place_id",prp.getProperty(Constants.PLACEID));
         Response res = given().log().all().
